@@ -1,0 +1,76 @@
+version: '3'
+
+networks: 
+  stepannikovdv-my-netology-hw:
+    driver: bridge
+    ipam:
+      config: 
+        - subnet: 172.22.0.0/24
+
+services:
+  postgres: # Название приложения
+    image: postgres:latest # Образ, который мы будем использовать 
+    container_name: stepannikovdv-netology-db # Имя, которым будет называться наш контейнер 
+    ports: # Порты, которые мы пробрасываем с нашего докер сервера внутрь контейнера 
+     - 5432:5432 
+    volumes: # Папка, которую мы пробросим с докер сервера внутрь контейнера 
+     - ./pg_data:/var/lib/postgresql/data/pgdata 
+    environment: # Переменные среды 
+     POSTGRES_PASSWORD: stepannikovdv12!3!! # Задаём пароль от пользователя postgres 
+     POSTGRES_DB: stepannikovdv-db # БД которая сразу же будет создана P
+     PGDATA: /var/lib/postgresql/data/pgdata # Путь внутри контейнера, где будет папка pgdata 
+    networks: 
+     stepannikovdv-my-netology-hw: 
+       ipv4_address: 172.22.0.2 
+    restart: always # Режим перезапуска контейнера. Контейнер всегда будет перезапускаться
+
+  pgadmin: 
+    image: dpage/pgadmin4:latest
+    depends_on:
+      - postgres
+    container_name: stepannikovdv-pgadmin 
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: stepannikovdv@ilove-netology.com 
+      PGADMIN_DEFAULT_PASSWORD: stepannikovdv12!3!! 
+    ports: 
+      - "61231:80" 
+    networks: 
+      stepannikovdv-my-netology-hw: 
+        ipv4_address: 172.22.0.3 
+    restart: always
+
+  zabbix-server: 
+    image: zabbix/zabbix-server-pgsql 
+    depends_on:
+      - postgres
+    container_name: stepannikovdv-zabbix-netology 
+    environment: 
+      DB_SERVER_HOST: '172.22.0.2' 
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: stepannikovdv12!3!!
+    ports: 
+      - "10051:10051" 
+    networks: 
+      stepannikovdv-my-netology-hw: 
+        ipv4_address: 172.22.0.4 
+    restart: always
+
+  zabbix_wgui: 
+    image: zabbix/zabbix-web-apache-pgsql 
+    depends_on:
+      - postgres
+      - zabbix-server
+    container_name: stepannikovdv-zabbix-frontend 
+    environment: 
+      DB_SERVER_HOST: '172.22.0.2' 
+      POSTGRES_USER: 'postgres' 
+      POSTGRES_PASSWORD: stepannikovdv12!3!!
+      ZBX_SERVER_HOST: '172.22.0.4'
+      PHP_TZ: "Europe/Moscow" 
+    ports: 
+      - "80:8080" 
+      - "443:8443" 
+    networks: 
+      stepannikovdv-my-netology-hw: 
+        ipv4_address: 172.22.0.5 
+    restart: always
