@@ -1,7 +1,3 @@
-# learning-devops
-мои домашние задания по курсу DevOps-инженер с нуля
-
-С помощью файла gitignore будут исключены следующие файлы:
 # Local .terraform directories
 **/.terraform/*
 
