@@ -40,6 +40,6 @@ workflow для задач BUG:
 workflow для прочих задач:
 ![Task #9.01 results](screenshots/09-ci-01-intro-1.png)
 
-Готовый [sdv-bug.xml](https://github.com/sdv09/CICD-DEV-33/09-ci-01-intro-repos/sdv-bug.xml)
+Готовый [sdv-bug.xml](https://github.com/sdv09/learning-devops/blob/main/CICD-DEV-33/09-ci-01-intro-repos/sdv-bug.xml)
 
-Готовый [sdv-all.xml](https://github.com/sdv09/CICD-DEV-33/09-ci-01-intro-repos/sdv-all.xml)
+Готовый [sdv-all.xml](https://github.com/sdv09/learning-devops/blob/main/CICD-DEV-33/09-ci-01-intro-repos/sdv-all.xml)
