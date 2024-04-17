@@ -75,7 +75,7 @@ COPY ./python_api /python_api
 CMD ["python3", "python-api.py"]
 ```
 
-* лог успешного выполнения пайплайнаЖ
+* лог успешного выполнения пайплайна:
 ![Task results](screenshots/09-ci-06-gitlab-2.png)
 ![Task results](screenshots/09-ci-06-gitlab-3.png)
 
